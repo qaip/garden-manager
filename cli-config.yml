@@ -1,0 +1,64 @@
+- command: create
+  required: true
+  help: create a new garden
+  arguments:
+    - option: [garden-name]
+      type: str
+      help: the name of garden
+
+- command: connect
+  help: connect to a garden
+  arguments:
+    - option: [garden-name]
+      type: str
+      help: the name of garden
+    - option: [--new]
+      action: store_true
+      help: create a new garden and automatically connect to it
+      
+
+- command: new
+  help: create a new garden object
+  arguments:
+    - command: bed
+      required: true
+      help: create a new garden bed
+      arguments:
+        - option: [-s, --size]
+          type: int
+          required: true
+          help: the size (max capacity) of the garden bed
+
+- command: seed
+  help: seed a garden bed with vegetables
+  arguments:
+    - option: [-n, --name]
+      type: str
+      required: true
+      help: the name of vegetable to seed
+    - option: [-c, --count]
+      type: int
+      required: true
+      help: the number of vegetables to seed
+
+- command: plant
+  help: plant a new tree
+  arguments:
+    - option: [-n, --name]
+      type: str
+      required: true
+      help: the name of vegetable to seed
+    - option: [-c, --count]
+      type: int
+      required: true
+      help: the number of vegetables to seed
+
+- command: list
+  help: list available gardens or garden objects
+  arguments:
+    - command: bed
+      help: list garden beds
+      type: str
+    - command: tree
+      help: list garden trees
+      type: str
