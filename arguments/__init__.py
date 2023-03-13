@@ -12,9 +12,8 @@ def parse(parser: ArgumentParser, rules: list, dest='command') -> None:
     subparsers = None
     for argument in rules:
         if 'command' in argument:
-            if not subparsers:
-                subparsers = parser.add_subparsers(
-                    title='commands', dest=dest, required=argument.get('required', False))
+            subparsers = parser.add_subparsers(
+                title='commands', dest=dest, required=argument.get('required', False))
             parser = subparsers.add_parser(
                 argument['command'], help=argument.get('help', ''), allow_abbrev=False)
             if 'arguments' in argument:

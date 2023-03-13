@@ -14,10 +14,6 @@ class BaseHandler:
         BaseHandler._args = args
         import_module(path).Handler()
 
-    @abstractmethod
-    def perform(self):
-        pass
-
     @classmethod
     def get_current_garden(cls):
         if hasattr(cls, 'current_garden'):
@@ -29,3 +25,5 @@ class BaseHandler:
         except FileNotFoundError:
             raise FileNotFoundError(
                 Template.NO_ACTIVE_GARDEN.value) from None
+    class Hello:
+        print("Hello")

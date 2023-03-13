@@ -1,0 +1,28 @@
+description: Manage your virtual garden using CLI
+prog: garden
+allow_abbrev: false
+group:
+  title: '' # title for the sub-parser group in help output; by default “subcommands” if description is provided, otherwise uses title for positional arguments
+  description: '' # description for the sub-parser group in help output, by default None
+  prog: '' # usage information that will be displayed with sub-command help, by default the name of the program and any positional arguments before the subparser argument
+  parser_class: '' # class which will be used to create sub-parser instances, by default the class of the current parser (e.g. ArgumentParser)
+  action: '' # the basic type of action to be taken when this argument is encountered at the command line
+  dest: '' # name of the attribute under which sub-command name will be stored; by default None and no value is stored
+  required: '' # Whether or not a subcommand must be provided, by default False (added in 3.7)
+  help: '' # help for sub-parser group in help output, by default None
+  metavar: '' # string presenting available sub-commands in help; by default it is None and presents sub-commands in form {cmd1, cmd2, ..}
+next:
+  - command: ''
+    ...command-options: {} # <-- same as praser options
+    next:
+      - argument + options
+      - argument + options
+  - argument + options
+  - argument + options
+  - argument + options
+
+default:
+  group:
+    ...group-options
+  command: 
+    ...command-options

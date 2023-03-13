@@ -1,6 +1,7 @@
-from handlers import BaseHandler
+import args from argyaml
 
 
-class Handler(BaseHandler):
-    def __init__(self) -> None:
-        pass
+def handler():
+    # blaablalba
+    args.something
+    pass

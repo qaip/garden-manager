@@ -11,7 +11,7 @@ python = "^3.10"
 python-dotenv = "^1.0.0"
 pyyaml = "^6.0"
 sqlalchemy = "^2.0.5.post1"
-
+argyaml = {path = "argyaml", develop = true}
 
 [build-system]
 requires = ["poetry-core"]
@@ -19,4 +19,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 dev = "main:main"
-gen = "generator:main"
+gen = "argyaml.__main__:generate"

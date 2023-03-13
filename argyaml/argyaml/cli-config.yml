@@ -1,0 +1,7 @@
+next:
+  - command: generate
+    next:
+      - argument: [--name]
+        type: str
+      - argument: [--config]
+        type: str
