@@ -5,3 +5,7 @@ next:
         type: str
       - argument: [--config]
         type: str
+      - argument: [--dir]
+        type: str
+      - argument: [--force]
+        action: store_true

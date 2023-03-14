@@ -17,7 +17,7 @@ class BaseHandler():
         self.__name = name
         self.__handlers_dir = handlers_dir
         self.__register_name()
-        config = self.__load_config(config_path)
+        config = self._load_config(config_path)
         default = config.pop('default', {})
         self.__default_group = default.get('group', {})
         self.__default_command = default.get('command', {})
@@ -44,7 +44,8 @@ class BaseHandler():
                 f"BaseHandler with name '{self.__name}' is already defined")
         BaseHandler._meta[self.__name] = self
 
-    def __load_config(self, config_path: str | None) -> dict:
+    @staticmethod
+    def _load_config(config_path: str | None) -> dict:
         if config_path is None:
             config_path = 'cli-config.yml'
         with open(config_path, 'r', encoding='UTF-8') as stream:
