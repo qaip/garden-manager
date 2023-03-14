@@ -27,7 +27,9 @@ class BaseHandler():
     @classmethod
     def meta(cls, name='Default'):
         if (not hasattr(BaseHandler, '_meta')) or (name not in cls._meta):
-            raise ValueError(f"BaseHandler with name '{name}' is not defined (${cls._meta.get(name)})")
+            raise ValueError(
+                f"BaseHandler with name '{name}' is not defined"
+                "(${cls._meta.get(name)})")
         args = cls._meta[name]._args
 
         class CustomHandler:
@@ -47,7 +49,7 @@ class BaseHandler():
     @staticmethod
     def _load_config(config_path: str | None) -> dict:
         if config_path is None:
-            config_path = 'cli-config.yml'
+            config_path = 'cli-config.yaml'
         with open(config_path, 'r', encoding='UTF-8') as stream:
             try:
                 config = safe_load(stream)
@@ -91,10 +93,14 @@ class BaseHandler():
                     self.__next(new_parser, new_next, new_group)
             elif 'argument' in rule:
                 argument = rule.pop('argument')
-                if 'type' in rule:
-                    rule['type'] = locate(rule.pop('type', 'bool'))
-                parser.add_argument(
-                    *argument, **self.__default_argument, **rule)
+                options = {**self.__default_argument, **rule}
+                if 'action' in rule and 'type' in self.__default_argument:
+                    options.pop('type', None)
+                if 'type' in options:
+                    argtype = locate(options.pop('type'))
+                    if argtype is not None:
+                        options['type'] = argtype
+                parser.add_argument(*argument, **options)
             else:
                 raise ValueError(f"Invalid rule: {rule}")
 

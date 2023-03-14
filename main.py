@@ -2,13 +2,13 @@ from handlers import BaseHandler
 from arguments import args
 
 def main():
-    BaseHandler(['custom', '--argument'], config='./custom-config.yaml',
+    BaseHandler(['custom', '--argument'], config='./custom-config.yml',
                 path='my_custom_handlers', handlers=lambda c: c)
     print(vars(args))
 
 
 class CustomHandler(BaseHandler):
-    config = './custom-config.yaml'
+    config = './custom-config.yml'
     path ='my_custom_handlers'
     handlers = lambda c: c
 

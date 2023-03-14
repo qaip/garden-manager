@@ -8,7 +8,7 @@ class Handler(BaseHandler.meta('Default')):
         print('Hello from default generate')
         config_path = self.args.get('config', None)
         if not config_path:
-            config_path = 'cli-config.yml'
+            config_path = 'cli-config.yaml'
         config = BaseHandler._load_config(config_path)
         rules = config.get('next', [])
         handler_name = self.args.get('name', None)
