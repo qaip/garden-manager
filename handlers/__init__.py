@@ -13,17 +13,3 @@ class BaseHandler:
             path += '_' + level
         BaseHandler._args = args
         import_module(path).Handler()
-
-    @classmethod
-    def get_current_garden(cls):
-        if hasattr(cls, 'current_garden'):
-            return cls.current_garden
-        try:
-            with open('.currentgarden', 'r') as stream:
-                cls.current_garden = stream.readline()
-                return cls.current_garden
-        except FileNotFoundError:
-            raise FileNotFoundError(
-                Template.NO_ACTIVE_GARDEN.value) from None
-    class Hello:
-        print("Hello")
