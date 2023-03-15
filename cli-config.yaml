@@ -5,29 +5,29 @@ next:
       - command: bed
         help: create a new garden bed
         next:
-          - option: [-s, --size]
+          - argument: [-s, --size]
             type: int
             required: true
             help: the size (max capacity) of the garden bed
   - command: seed
     help: seed a garden bed with vegetables
     next:
-      - option: [-n, --name]
+      - argument: [-n, --name]
         type: str
         required: true
         help: the name of vegetable to seed
-      - option: [-c, --count]
+      - argument: [-c, --count]
         type: int
         required: true
         help: the number of vegetables to seed
   - command: plant
     help: plant a new tree
     next:
-      - option: [-n, --name]
+      - argument: [-n, --name]
         type: str
         required: true
         help: the name of vegetable to seed
-      - option: [-c, --count]
+      - argument: [-c, --count]
         type: int
         required: true
         help: the number of vegetables to seed
@@ -36,7 +36,5 @@ next:
     next:
       - command: bed
         help: list garden beds
-        type: str
       - command: tree
         help: list garden trees
-        type: str

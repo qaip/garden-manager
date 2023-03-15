@@ -1,20 +1,9 @@
-from handlers import BaseHandler
-from arguments import args
+from argyaml import BaseHandler
+
 
 def main():
-    BaseHandler(['custom', '--argument'], config='./custom-config.yml',
-                path='my_custom_handlers', handlers=lambda c: c)
-    print(vars(args))
+    BaseHandler().run()
 
-
-class CustomHandler(BaseHandler):
-    config = './custom-config.yml'
-    path ='my_custom_handlers'
-    handlers = lambda c: c
 
 if __name__ == '__main__':
     main()
-
-
-class CustomHandler(BaseHandler.meta('garden')):
-    difosidfjo:
