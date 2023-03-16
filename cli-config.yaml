@@ -1,4 +1,19 @@
 next:
+  - command: create
+    help: create a new garden
+    next:
+      - argument: ['name']
+        type: str
+        help: name of the garden
+  - command: remove
+    help: remove a garden
+    next:
+      - argument: ['name']
+        type: str
+        help: name of the garden
+      - argument: [--force]
+        help: remove garden with all its beds
+
   - command: new
     help: create a new garden object
     next:
@@ -33,6 +48,8 @@ next:
         help: the number of vegetables to seed
   - command: list
     help: list available gardens or garden objects
+    group:
+      required: false
     next:
       - command: bed
         help: list garden beds

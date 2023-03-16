@@ -1,6 +1,6 @@
-from argyaml import BaseHandler
+from handlers import GardenHandler
 
 
-class Handler(BaseHandler.meta()):
+class Handler(GardenHandler):
     def __init__(self):
         pass

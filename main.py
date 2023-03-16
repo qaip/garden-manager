@@ -1,4 +1,7 @@
 from argyaml import BaseHandler
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def main():

@@ -5,36 +5,32 @@ from sqlalchemy.sql import func
 Base = declarative_base()
 
 
-class Card(Base):
-    __tablename__ = 'card'
+class GardenBed(Base):
+    __tablename__ = 'bed'
     id = Column(Integer, primary_key=True)
-    number = Column(String)
-    pincode = Column(String)
-    account_id = Column(Integer, ForeignKey("CardAccount.id"))
+    size = Column(Integer)
+    life_factor = Column(Integer)
+    garden_id = Column(Integer, ForeignKey("Garden.id"))
 
     def __repr__(self):
-        return f"<Card(number='{self.number}', account_id='{self.account_id}', pincode='{self.pincode}')>"
+        return f"<GardenBed(size='{self.size}', life_factor='{self.life_factor}', garden_id='{self.garden_id}')>"
 
 
-class CardAccount(Base):
-    __tablename__ = 'card_account'
+class Garden(Base):
+    __tablename__ = 'garden'
     id = Column(Integer, primary_key=True)
-    number = Column(String)
-    currency = Column(String)
-    balance = Column(Integer)
+    name = Column(String)
 
     def __repr__(self):
-        return f"<CardAccount(number='{self.number}', currency='{self.currency}', balance='{self.balance}')>"
+        return f"<Garden(name='{self.name}')>"
 
 
-class Transfer(Base):
-    __tablename__ = 'transfer'
+class Plant(Base):
+    __tablename__ = 'plant'
     id = Column(Integer, primary_key=True)
-    account_id = Column(Integer, ForeignKey("card_account.id"))
-    operation_type = Column(Enum(OperationType))
-    operation_name = Column(String)
-    completed_at = Column(DateTime, default=func.now())
-    amount = Column(Integer)
+    name = Column(String)
+    stage = Column(Integer)
+    bed_id = Column(Integer, ForeignKey("GardenBed.id"))
 
     def __repr__(self):
-        return f"<Transfer(operation_type='{self.operation_type.name}', operation_name='{self.operation_name}', amount='{self.amount}')>"
+        return f"<Plant(name='{self.name}', stage='{self.stage}', bed_id='{self.bed}')>"
