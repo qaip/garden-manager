@@ -6,7 +6,7 @@ class Handler(GardenHandler):
     def __init__(self):
         garden = self.db.query(Garden).filter(Garden.name == self.args['name']).first()
         if garden is None:
-            print(f"'Garden '{self.args['name']}' not found")
+            print(f"Garden '{self.args['name']}' does not exist")
         else:
             self.db.delete(garden)
             self.db.commit()

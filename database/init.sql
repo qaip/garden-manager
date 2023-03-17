@@ -30,6 +30,8 @@ CREATE TABLE "public"."plant" (
 ) WITH (oids = false);
 
 
+ALTER TABLE ONLY "public"."garden" ADD CONSTRAINT "garden_name_ukey" UNIQUE (name);
+
 ALTER TABLE ONLY "public"."bed" ADD CONSTRAINT "bed_garden_id_fkey" FOREIGN KEY (garden_id) REFERENCES garden(id) NOT DEFERRABLE;
 
 ALTER TABLE ONLY "public"."plant" ADD CONSTRAINT "plant_bed_id_fkey" FOREIGN KEY (bed_id) REFERENCES bed(id) NOT DEFERRABLE;

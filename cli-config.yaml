@@ -5,6 +5,9 @@ next:
       - argument: ['name']
         type: str
         help: name of the garden
+      - argument: ['--use']
+        action: store_true
+        help: automatically switch to the garden after creation
   - command: remove
     help: remove a garden
     next:
@@ -13,6 +16,12 @@ next:
         help: name of the garden
       - argument: [--force]
         help: remove garden with all its beds
+  - command: use
+    help: select a garden to work with
+    next:
+      - argument: ['name']
+        type: str
+        help: name of the garden
 
   - command: new
     help: create a new garden object
