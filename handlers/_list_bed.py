@@ -13,31 +13,37 @@ class Handler(GardenHandler):
         ).filter_by(garden_id=self.current_garden_id).all()
         plants = []
         if not self.args['details']:
-            plants_query = self.db.query(Plant.id)
+            plants_query = self.db.query(Plant.stage)
             for bed in beds:
+                stages = plants_query.filter_by(bed_id=bed[0]).all()
                 plants.append((
-                    plants_query.filter(Plant.bed_id == bed[0]).count(),
-                    plants_query.filter(
-                        Plant.bed_id == bed[0],
-                        Plant.stage > garden.Plant.Stage.ADULT_PLANT.value
-                    ).count()
+                    Handler.num_stages(stages, GardenHandler.PlantStage.SEED),
+                    Handler.num_stages(stages, GardenHandler.PlantStage.SPROUT),
+                    Handler.num_stages(stages, GardenHandler.PlantStage.SMALL_PLANT),
+                    Handler.num_stages(stages, GardenHandler.PlantStage.ADULT_PLANT),
                 ))
             print(tabulate(
                 [(*bed, *plants[index]) for index, bed in enumerate(beds)],
-                headers=['Id', 'Size', 'Life Factor',
-                         'Total Plants', 'Adult Plants'],
+                headers=['Id', 'Size', 'Life Factor', 'Seeds',
+                         'Spouts', 'Small Plants', 'Adult Plants'],
                 numalign='center'
             ))
         else:
             plants_query = self.db.query(Plant.id, Plant.name, Plant.stage)
             for index, bed in enumerate(beds):
+                plants = (plants_query.filter(Plant.bed_id == bed[0]).all())
                 if index:
                     print()
                 print(
-                    f"Bed: {bed[0]} | size: {bed[1]} | life factor: {bed[2]}")
-                plants = (plants_query.filter(Plant.bed_id == bed[0]).all())
+                    f"Bed: {bed[0]} | size: {bed[1]} "
+                    f"| seeded: {len(plants)} | life factor: {bed[2]}")
                 print(tabulate(
                     plants,
                     headers=['Id', 'Name', 'Stage'],
                     numalign='center'
                 ))
+
+    @staticmethod
+    def num_stages(stages, target_stage: GardenHandler.PlantStage) -> int:
+        return sum(GardenHandler.get_plant_stage(stage) == target_stage
+                   for stage, in stages)

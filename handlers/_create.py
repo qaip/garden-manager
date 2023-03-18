@@ -1,11 +1,16 @@
+from sqlalchemy.exc import IntegrityError
 from database.models import Garden
 from handlers import GardenHandler
 
 
 class Handler(GardenHandler):
     def __init__(self):
-        self.db.add(Garden(name=self.args['name']))
-        self.db.commit()
+        try:
+            self.db.add(Garden(name=self.args['name']))
+            self.db.commit()
+        except IntegrityError:
+            print(f"Failed to create: garden '{self.args['name']}' already exists")
+            exit(1)
         garden = self.db.query(Garden.id).filter_by(name=self.args['name']).first()
         if not garden:
             raise RuntimeError('Unable to create garden')

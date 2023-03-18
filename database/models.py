@@ -21,7 +21,7 @@ class Garden(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
-    def __repr__(self):
+def __repr__(self):
         return f"<Garden(name='{self.name}')>"
 
 
@@ -33,4 +33,4 @@ class Plant(Base):
     bed_id = Column(Integer, ForeignKey("bed.id"))
 
     def __repr__(self):
-        return f"<Plant(name='{self.name}', stage='{self.stage}', bed_id='{self.bed}')>"
+        return f"<Plant(name='{self.name}', stage='{self.stage}', bed_id='{self.bed_id}')>"

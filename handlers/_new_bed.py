@@ -1,4 +1,4 @@
-from database.models import Garden, GardenBed
+from database.models import GardenBed
 from handlers import GardenHandler
 
 

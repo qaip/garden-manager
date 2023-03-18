@@ -4,26 +4,27 @@ next:
     next:
       - argument: ['name']
         type: str
-        help: name of the garden
+        help: the name of garden
       - argument: ['--use']
         action: store_true
-        help: automatically switch to the garden after creation
+        help: automatically switch to the new garden after creation
 
-  - command: remove
-    help: remove a garden
+  - command: delete
+    help: delete a garden
     next:
       - argument: ['name']
         type: str
-        help: name of the garden
+        help: the name of garden
       - argument: [--force]
-        help: remove garden with all its beds
+        action: store_true
+        help: delete garden with all its beds
 
   - command: use
     help: select a garden to work with
     next:
       - argument: ['name']
         type: str
-        help: name of the garden
+        help: the name of garden
 
   - command: new
     help: create a new garden object
@@ -37,7 +38,7 @@ next:
             help: the size (max capacity) of the garden bed
 
   - command: seed
-    help: seed a garden bed with vegetables
+    help: seed a garden bed with plants
     next:
       - argument: [-b, --bed]
         dest: bed_id
@@ -47,11 +48,11 @@ next:
       - argument: [-n, --name]
         type: str
         required: true
-        help: the name of vegetable to seed
+        help: the name of plant to seed
       - argument: [-c, --count]
         type: int
         required: true
-        help: the number of vegetables to seed
+        help: the number of plants to seed
 
   - command: list
     help: list available gardens or garden objects
@@ -63,7 +64,7 @@ next:
         next:
           - argument: [--details]
             action: store_true
-            help: list garden beds with all their plants
+            help: list garden beds in details, with all their plants
 
   - command: water
     help: water a garden bed
@@ -76,3 +77,17 @@ next:
       - argument: [--intensive]
         action: store_true
         help: with intensive watering, plants will grow faster
+
+  - command: harvest
+    help: harvest from a garden bed
+    next:
+      - argument: [-b, --bed]
+        dest: bed_id
+        type: str
+        help: the number of garden bed to harvest from
+      - argument: [--all]
+        action: store_true
+        help: harvest from all garden beds
+      - argument: [--force]
+        action: store_true
+        help: harvest regardless of plant stage

@@ -14,7 +14,7 @@ class Plant(ABC):
         if not hasattr(cls, 'types'):
             cls.types: dict[str, str] = {}
         defined_type = cls.types.get(name)
-        if defined_type == None:
+        if defined_type is None:
             cls.types[name] = type
         elif defined_type != type:
             raise ValueError(

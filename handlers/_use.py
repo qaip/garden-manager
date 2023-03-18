@@ -10,4 +10,4 @@ class Handler(GardenHandler):
                 stream.write(str(garden[0]))
             print(f"Now using garden '{self.args['name']}'")
         else:
-            print(f"Garden '{self.args['name']}' does not exist")
+            print(f"Failed to use: garden '{self.args['name']}' does not exist")

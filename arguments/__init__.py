@@ -34,7 +34,7 @@ def __init__() -> None:
     args = parser.parse_args()
 
 
-if args == None:
+if args is None:
     load_dotenv()
     __init__()
 

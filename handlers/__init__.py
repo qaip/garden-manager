@@ -1,3 +1,4 @@
+from enum import Enum
 from argyaml import BaseHandler
 from database.session import make_session
 from handlers.messages import Template
@@ -41,3 +42,19 @@ class GardenHandler(BaseHandler.meta()):
     def __del__(self):
         if self.__session:
             self.__session.close()
+
+    class PlantStage(Enum):
+        SEED = 0
+        SPROUT = 40
+        SMALL_PLANT = 60
+        ADULT_PLANT = 80
+
+    @classmethod
+    def get_plant_stage(cls, stage: int) -> PlantStage:
+        if (stage >= cls.PlantStage.ADULT_PLANT.value):
+            return cls.PlantStage.ADULT_PLANT
+        if (stage >= cls.PlantStage.SMALL_PLANT.value):
+            return cls.PlantStage.SMALL_PLANT
+        if (stage >= cls.PlantStage.SPROUT.value):
+            return cls.PlantStage.SPROUT
+        return cls.PlantStage.SEED
