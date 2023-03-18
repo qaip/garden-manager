@@ -8,7 +8,7 @@ class GardenHandler(BaseHandler.meta()):
     def __init__(self):
         super(GardenHandler, self).__init__()
 
-    __current_garden: str | None = None
+    __current_garden: int | None = None
     __session: Session | None = None
 
     @property
@@ -18,16 +18,25 @@ class GardenHandler(BaseHandler.meta()):
         return self.__session
 
     @property
-    def current_garden(self):
+    def safe_current_garden_id(self):
         if not self.__current_garden:
             try:
                 with open('.currentgarden', 'r', encoding='UTF-8') as stream:
-                    self.__current_garden = stream.readline()
+                    id_str = stream.read()
+                    try:
+                        self.__current_garden = int(id_str)
+                    except ValueError:
+                        self.__current_garden = None
             except FileNotFoundError:
-                raise FileNotFoundError(
-                    Template.NO_ACTIVE_GARDEN.value) from None
+                self.__current_garden = None
         return self.__current_garden
-    
+
+    @property
+    def current_garden_id(self):
+        if not self.safe_current_garden_id:
+            print(Template.NO_ACTIVE_GARDEN.value)
+            exit(1)
+        return self.safe_current_garden_id
 
     def __del__(self):
         if self.__session:

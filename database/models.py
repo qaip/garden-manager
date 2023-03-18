@@ -10,7 +10,7 @@ class GardenBed(Base):
     id = Column(Integer, primary_key=True)
     size = Column(Integer)
     life_factor = Column(Integer)
-    garden_id = Column(Integer, ForeignKey("Garden.id"))
+    garden_id = Column(Integer, ForeignKey("garden.id"))
 
     def __repr__(self):
         return f"<GardenBed(size='{self.size}', life_factor='{self.life_factor}', garden_id='{self.garden_id}')>"
@@ -30,7 +30,7 @@ class Plant(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     stage = Column(Integer)
-    bed_id = Column(Integer, ForeignKey("GardenBed.id"))
+    bed_id = Column(Integer, ForeignKey("bed.id"))
 
     def __repr__(self):
         return f"<Plant(name='{self.name}', stage='{self.stage}', bed_id='{self.bed}')>"

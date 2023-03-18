@@ -8,6 +8,7 @@ next:
       - argument: ['--use']
         action: store_true
         help: automatically switch to the garden after creation
+
   - command: remove
     help: remove a garden
     next:
@@ -16,6 +17,7 @@ next:
         help: name of the garden
       - argument: [--force]
         help: remove garden with all its beds
+
   - command: use
     help: select a garden to work with
     next:
@@ -33,9 +35,15 @@ next:
             type: int
             required: true
             help: the size (max capacity) of the garden bed
+
   - command: seed
     help: seed a garden bed with vegetables
     next:
+      - argument: [-b, --bed]
+        dest: bed_id
+        type: str
+        required: true
+        help: the number of garden bed
       - argument: [-n, --name]
         type: str
         required: true
@@ -44,17 +52,7 @@ next:
         type: int
         required: true
         help: the number of vegetables to seed
-  - command: plant
-    help: plant a new tree
-    next:
-      - argument: [-n, --name]
-        type: str
-        required: true
-        help: the name of vegetable to seed
-      - argument: [-c, --count]
-        type: int
-        required: true
-        help: the number of vegetables to seed
+
   - command: list
     help: list available gardens or garden objects
     group:
@@ -62,5 +60,19 @@ next:
     next:
       - command: bed
         help: list garden beds
-      - command: tree
-        help: list garden trees
+        next:
+          - argument: [--details]
+            action: store_true
+            help: list garden beds with all their plants
+
+  - command: water
+    help: water a garden bed
+    next:
+      - argument: [-b, --bed]
+        dest: bed_id
+        type: str
+        required: true
+        help: the number of garden bed to water
+      - argument: [--intensive]
+        action: store_true
+        help: with intensive watering, plants will grow faster
