@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  adminer:
+    image: adminer:4.8.1
+    ports:
+      - 8077:8080
+  db:
+    image: postgres:15.2
+    container_name: garden-postgres
+    network_mode: host
+    env_file:
+      - .env
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql

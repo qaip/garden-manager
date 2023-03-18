@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "garden"
+version = "0.1.0"
+description = "An advanced CLI tool for creating, simulating, and managing virtual gardens"
+authors = ["Artur Sharapov"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+sqlalchemy = "^2.0.5.post1"
+argyaml = "^0.1.5"
+python-dotenv = "^1.0.0"
+psycopg2 = "^2.9.5"
+tabulate = "^0.9.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+garden = "main:main"
