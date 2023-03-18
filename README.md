@@ -213,4 +213,4 @@ Feel free to open pull requests, any contribution is appreciated!
 
 
 ## License
-This project is licensed under the [MIT License](./LICENSE).
+This project is licensed under the [MIT License](https://github.com/qaip/garden/blob/LICENSE).
