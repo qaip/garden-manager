@@ -198,11 +198,11 @@ garden harvest --all
 ```
 Harvest regardless of plant stage (by default only adult plants are harvested):
 ```bash
-garden harvest --bed 1
+garden harvest --bed 1 --force
 # Harvested 6 carrots, 6 cabbages from garden bed 1
 ```
 ```bash
-garden harvest --force
+garden harvest --all --force
 # Harvested 6 carrots, 7 cabbages, 3 beets, 4 potatoes from the whole garden
 ```
 
