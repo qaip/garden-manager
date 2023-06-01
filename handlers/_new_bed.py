@@ -3,7 +3,9 @@ from handlers import GardenHandler
 
 
 class Handler(GardenHandler):
-    def __init__(self):
-        self.db.add(GardenBed(size=self.args['size'], life_factor=100, garden_id=self.current_garden_id))
+    def __init__(self, server=False):
+        super().__init__(server)
+        self.db.add(GardenBed(
+            size=self.args['size'], life_factor=100, garden_id=self.current_garden_id))
         self.db.commit()
-        print(f"Created garden bed of size {self.args['size']}")
+        self.print(f"Created garden bed of size {self.args['size']}")

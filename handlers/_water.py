@@ -4,7 +4,8 @@ from handlers import GardenHandler
 
 
 class Handler(GardenHandler):
-    def __init__(self):
+    def __init__(self, server=False):
+        super().__init__(server)
         increase = 20 if self.args['intensive'] else 10
         try:
             self.db.query(Plant).filter_by(
@@ -12,8 +13,8 @@ class Handler(GardenHandler):
             ).update({"stage": Plant.stage + increase})
             self.db.commit()
         except IntegrityError:
-            print(
+            self.print(
                 f"Failed to water: garden bed '{self.args['bed_id']}' does not exist")
             exit(1)
-        print(
+        self.print(
             f"Watered garden bed {self.args['bed_id']} (+{increase})")

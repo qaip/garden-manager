@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Garden Manager</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      .gardens {
+        background-color: pink;
+        height: 10vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .beds {
+        background-color: skyblue;
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .tools {
+        background-color: antiquewhite;
+        height: calc(50vh - 3rem);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        padding: 1.5rem;
+      }
+      .tools > div {
+        background-color: rgb(230, 204, 171);
+        width: 10rem;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.164);
+        padding: 0.5rem;
+        margin: 0.5rem;
+      }
+      .tools > div > * {
+        margin: 0.3rem 0;
+      }
+      .tools > div > input {
+        width: 9.4rem;
+        padding: 0.2rem 0.3rem;
+        outline: 0;
+        border: 0;
+      }
+      .button {
+        background-color: rgb(207, 176, 135);
+        padding: 0.2rem 0.3rem;
+        cursor: pointer;
+        text-align: center;
+      }
+      garden {
+        background-color: rgb(218, 132, 146);
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        cursor: pointer;
+      }
+      garden.active {
+        background-color: rgb(204, 84, 104);
+      }
+      bed {
+        background-color: rgb(115, 185, 212);
+        width: 10rem;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.164);
+        padding: 0.5rem;
+        margin: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      bed > div {
+        margin: 8px 0;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+      bed > div::before {
+        margin: 0 5px;
+        content: attr(class);
+        background: rgb(88 164 193);
+        font-size: 1rem;
+        font-family: monospace;
+        font-size: 12px;
+        border-radius: 8px;
+        padding: 2px 4px;
+      }
+    </style>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div class="gardens"></div>
+    <div class="beds"></div>
+    <div class="details"></div>
+    <div class="tools">
+      <div class="new_garden">
+        <div class="title">Edit Gardens</div>
+        <input id="garden_name" placeholder="name" />
+        <div class="button" tabindex="0" onclick="rest.create(val('garden_name')).then(update)">Add new garden</div>
+        <div class="button" tabindex="0" onclick="rest.delete(val('garden_name')).then(update)">Delete garden</div>
+        <div class="button" tabindex="0" onclick="rest.deleteForced(val('garden_name')).then(update)">Delete garden forced</div>
+      </div>
+      <div class="new_bed">
+        <div class="title">New Bed</div>
+        <input id="bed_size" placeholder="size" />
+        <div class="button" tabindex="0" onclick="rest.newBed(val('bed_size')).then(updateBeds)">Add new bed</div>
+      </div>
+      <div class="seed">
+        <div class="title">Seed</div>
+        <input id="seed_bed" placeholder="bed id" />
+        <input id="seed_name" placeholder="seed name" />
+        <input id="seed_count" placeholder="count" />
+        <div
+          class="button"
+          tabindex="0"
+          onclick="rest.seed(val('seed_bed'), val('seed_name'), val('seed_count')).then(updateBeds)"
+        >
+          Seed
+        </div>
+      </div>
+      <div class="water">
+        <div class="title">Water</div>
+        <input id="water_bed" placeholder="bed id" />
+        <div class="button" tabindex="0" onclick="rest.water(val('water_bed')).then(updateBeds)">Water</div>
+        <div class="button" tabindex="0" onclick="rest.waterIntensively(val('water_bed')).then(updateBeds)">
+          Water intensively
+        </div>
+      </div>
+      <div class="harvest">
+        <div class="title">Harvest</div>
+        <input id="harvest_bed" placeholder="bed id" />
+        <div class="button" tabindex="0" onclick="harvest(val('harvest_bed'))">Harvest</div>
+        <div class="button" tabindex="0" onclick="harvestForsed(val('harvest_bed'))">Harvest forsed</div>
+        <div class="button" tabindex="0" onclick="harvestAll(val('harvest_bed'))">Harvest all</div>
+        <div class="button" tabindex="0" onclick="harvestAllForced(val('harvest_bed'))">Harvest all forced</div>
+      </div>
+    </div>
+  </body>
+</html>

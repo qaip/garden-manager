@@ -3,11 +3,26 @@ from argyaml import BaseHandler
 from database.session import make_session
 from handlers.messages import Template
 from sqlalchemy.orm import Session
+from typing import Any
 
 
-class GardenHandler(BaseHandler.meta()):
-    def __init__(self):
-        super(GardenHandler, self).__init__()
+class GardenHandler():
+    def __init__(self, server=False):
+        # super(GardenHandler, self).__init__()
+        self.__default = BaseHandler.meta()
+        self.args: dict[str, Any] = self.__default.args()
+        self.__server = server
+        try:
+            print('existing response?!', self.response)
+        except:
+            pass
+        self.response = []
+
+    def print(self, *kargs):
+        if self.__server:
+            self.response.append(kargs)
+        else:
+            print(*kargs)
 
     __current_garden: int | None = None
     __session: Session | None = None

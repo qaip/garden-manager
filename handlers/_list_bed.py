@@ -5,7 +5,8 @@ import garden
 
 
 class Handler(GardenHandler):
-    def __init__(self):
+    def __init__(self, server=False):
+        super().__init__(server)
         beds = self.db.query(
             GardenBed.id,
             GardenBed.size,
@@ -18,11 +19,14 @@ class Handler(GardenHandler):
                 stages = plants_query.filter_by(bed_id=bed[0]).all()
                 plants.append((
                     Handler.num_stages(stages, GardenHandler.PlantStage.SEED),
-                    Handler.num_stages(stages, GardenHandler.PlantStage.SPROUT),
-                    Handler.num_stages(stages, GardenHandler.PlantStage.SMALL_PLANT),
-                    Handler.num_stages(stages, GardenHandler.PlantStage.ADULT_PLANT),
+                    Handler.num_stages(
+                        stages, GardenHandler.PlantStage.SPROUT),
+                    Handler.num_stages(
+                        stages, GardenHandler.PlantStage.SMALL_PLANT),
+                    Handler.num_stages(
+                        stages, GardenHandler.PlantStage.ADULT_PLANT),
                 ))
-            print(tabulate(
+            self.print(tabulate(
                 [(*bed, *plants[index]) for index, bed in enumerate(beds)],
                 headers=['Id', 'Size', 'Life Factor', 'Seeds',
                          'Spouts', 'Small Plants', 'Adult Plants'],
@@ -33,11 +37,11 @@ class Handler(GardenHandler):
             for index, bed in enumerate(beds):
                 plants = (plants_query.filter(Plant.bed_id == bed[0]).all())
                 if index:
-                    print()
-                print(
+                    self.print()
+                self.print(
                     f"Bed: {bed[0]} | size: {bed[1]} "
                     f"| seeded: {len(plants)} | life factor: {bed[2]}")
-                print(tabulate(
+                self.print(tabulate(
                     plants,
                     headers=['Id', 'Name', 'Stage'],
                     numalign='center'

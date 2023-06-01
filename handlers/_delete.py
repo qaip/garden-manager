@@ -3,20 +3,22 @@ from handlers import GardenHandler
 
 
 class Handler(GardenHandler):
-    def __init__(self):
+    def __init__(self, server=False):
+        super().__init__(server)
         garden = self.db.query(Garden).filter_by(
             name=self.args['name']).first()
         if garden is None:
-            print(f"Failed to delete: "
-                  f"garden '{self.args['name']}' does not exist")
+            self.print(f"Failed to delete: "
+                       f"garden '{self.args['name']}' does not exist")
         else:
             if not self.args['force']:
                 bed = self.db.query(GardenBed).filter_by(
                     garden_id=garden.id).first()
                 if bed is not None:
-                    print(f"Failed to delete: "
-                          f"garden '{self.args['name']}' is not empty")
-                    print("Use '--force' flag to delete garden with all its contents")
+                    self.print(f"Failed to delete: "
+                               f"garden '{self.args['name']}' is not empty")
+                    self.print(
+                        "Use '--force' flag to delete garden with all its contents")
                     exit(1)
             else:
                 beds = self.db.query(GardenBed).filter_by(
@@ -33,6 +35,7 @@ class Handler(GardenHandler):
             self.db.delete(garden)
             self.db.commit()
             if not self.args['force']:
-                print(f"Deleted garden '{self.args['name']}'")
+                self.print(f"Deleted garden '{self.args['name']}'")
             else:
-                print(f"Deleted garden '{self.args['name']}' with all its contents")
+                self.print(
+                    f"Deleted garden '{self.args['name']}' with all its contents")
